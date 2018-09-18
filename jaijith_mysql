@@ -1,0 +1,85 @@
+ show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| jai                |
+| jaijith            |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+
+ describe physicians;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | int(10)     | YES  |     | NULL    |       |
+| name     | varchar(20) | NO   | PRI | NULL    |       |
+| password | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+describe patients;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| idpatient        | int(10)     | YES  |     | NULL    |       |
+| personalNo       | int(50)     | NO   | PRI | NULL    |       |
+| SecondName       | varchar(30) | YES  |     | NULL    |       |
+| FirstName        | varchar(30) | YES  |     | NULL    |       |
+| Sex              | varchar(20) | YES  |     | NULL    |       |
+| dateofbirth      | varchar(20) | YES  |     | NULL    |       |
+| placeofbirth     | varchar(30) | YES  |     | NULL    |       |
+| placeofresidence | varchar(30) | YES  |     | NULL    |       |
+| physician        | varchar(20) | YES  | MUL | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+
+create table bones(id int(20), bone varchar(10),stage int(50),text varchar(20),primary key(stage));
+Query OK, 0 rows affected (0.26 sec)
+
+describe bones;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(20)     | YES  |     | NULL    |       |
+| bone  | varchar(10) | YES  |     | NULL    |       |
+| stage | int(50)     | NO   | PRI | NULL    |       |
+| text  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+describe bonestages;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int(20)     | NO   | PRI | NULL    |       |
+| name   | varchar(50) | YES  |     | NULL    |       |
+| stages | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+create table consultation( idconsultation int(10),  personalNo int(50), dateofconsultation varchar(30), weight int(10), height int(10), diagnostic int(50), selectedbones varchar(30), realscore varchar(30), maturityscore varchar (30), boneage varchar(30), physician varchar(20), foreign key(personalNo) references patients(personalNo), foreign key(physician) references physicians(name),foreign key(diagnostic) references bones(stage),foreign key(diagnostic) references bonestages(id)) ;
+Query OK, 0 rows affected (0.31 sec)
+
+describe consultation;
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| idconsultation     | int(10)     | YES  |     | NULL    |       |
+| personalNo         | int(50)     | YES  | MUL | NULL    |       |
+| dateofconsultation | varchar(30) | YES  |     | NULL    |       |
+| weight             | int(10)     | YES  |     | NULL    |       |
+| height             | int(10)     | YES  |     | NULL    |       |
+| diagnostic         | int(50)     | YES  | MUL | NULL    |       |
+| selectedbones      | varchar(30) | YES  |     | NULL    |       |
+| realscore          | varchar(30) | YES  |     | NULL    |       |
+| maturityscore      | varchar(30) | YES  |     | NULL    |       |
+| boneage            | varchar(30) | YES  |     | NULL    |       |
+| physician          | varchar(20) | YES  | MUL | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
